@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Home</title>
+<link rel="stylesheet" type="text/css"
+	href="/ufcm/src/main/resources/static/css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-sm bg-light">
+		<ul class="navbar-nav">			
+			<li class="nav-item">
+				<a class="nav-link" th:text="${username}">
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link"
+				th:href="@{addTask(idUser=${idUser})}">
+				Add a Task
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" th:href="@{login}">
+				Logout					
+				</a>
+			</li>
+		</ul>
+		</nav>
+<div class="container">
+	<br />
+
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h2>Home page so welcome</h2></div>
+			<div class="panel-heading">
+				<h2 th:text="${username}"></h2>
+			</div>
+		</div> <br>
+				<form th:action="@{index(idUser=${idUser})}"
+				 method="POST">
+				<label>Search by :</label> <input type="text" name="mc"
+				th:value="${mc}" />
+				<button class="btn btn-primary">Search</button>
+				</form> <br>
+		
+			<table class="table">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">Category</th>
+								<th scope="col">Title</th>
+								<th scope="col">Label</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="t:${listTasks}">
+								<td th:text="${t.category}"></td>
+								<td th:text="${t.title}"></td>
+								<td th:text="${t.label}"></td>
+								<td><a onclick="return confirm('Are you sur ?')"
+									th:href="@{delete(idUser=${idUser},id_task=${t.id_task})}">Delete</a>
+								</td>
+								<td><a th:href="@{edit(idUser=${idUser},id_task=${t.id_task})}">Edit</a>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+		
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 	<div> -->
+<!-- 	 <span th:if="${param.error}"> Incorrect username or password ! -->
+<!-- 	</span> -->
+<!-- 	<div> -->
+<!-- 	 <span th:if="${param.logout}"> Vous etes déconnecté ! -->
+<!-- 	</span> -->
